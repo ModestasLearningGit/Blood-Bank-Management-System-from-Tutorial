@@ -20,6 +20,9 @@ namespace BloodBankManagementSystem
         string image_name = "no-image.jpg";
 
         string rowHeaderImage;
+
+        string sourcePath = " ";
+        string destinationPath = " ";
         public frmDonors()
         {
             InitializeComponent();
@@ -74,7 +77,10 @@ namespace BloodBankManagementSystem
             
             d.image_name = image_name;
 
-
+            if(image_name != "no-image.jpg")
+            {
+                File.Copy(sourcePath, destinationPath);
+            }
 
             bool isSuccess = dal.Insert(d);
 
@@ -184,14 +190,14 @@ namespace BloodBankManagementSystem
 
                     image_name = "Blood_banl_MS_" + name + g + ext;
 
-                    string sourcePath = open.FileName;
+                    sourcePath = open.FileName;
 
                     string path = Application.StartupPath.Substring(0, Application.StartupPath.Length);
-                    string destinationPath = path + "Image\\" + image_name;
+                    destinationPath = path + "Image\\" + image_name;
 
-                    File.Copy(sourcePath, destinationPath);
+                    //File.Copy(sourcePath, destinationPath);
 
-                    MessageBox.Show("IMAGE UPLOADED SUCESSFULLY");
+                    //MessageBox.Show("IMAGE UPLOADED SUCESSFULLY");
                 }
             }
         }
@@ -220,6 +226,7 @@ namespace BloodBankManagementSystem
             txtContact.Text = "";
             txtAddress.Text = "";
             txtDonorID.Text = "";
+            image_name = "no-image.jpg";
 
             string path = Application.StartupPath.Substring(0, (Application.StartupPath.Length));
             string imagePath = path + "Image\\no-image.jpg";

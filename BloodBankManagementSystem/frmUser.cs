@@ -24,6 +24,9 @@ namespace BloodBankManagementSystem
 
         string imageName = "no-image.jpg";
         string rowHeaderImage;
+
+        string sourcePath = "";
+        string destinationPath = "";
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -89,6 +92,11 @@ namespace BloodBankManagementSystem
             u.address = txtAddress.Text;
             u.added_date = DateTime.Now;
             u.image_name = imageName;
+
+            if(imageName != "no-image.jpg")
+            {
+                File.Copy(sourcePath, destinationPath);
+            }
 
             bool success = dal.Insert(u);
 
@@ -164,6 +172,8 @@ namespace BloodBankManagementSystem
             u.added_date = DateTime.Now;
             u.image_name = imageName;
 
+            
+
             bool success = dal.Update(u);
 
             if(success)
@@ -204,15 +214,15 @@ namespace BloodBankManagementSystem
 
                     imageName = "Blood Bank_MS_" + RandInt + ext;
 
-                    string sourcePath = open.FileName;
+                    sourcePath = open.FileName;
 
                     string path = Application.StartupPath.Substring(0, Application.StartupPath.Length);
 
-                    string destinationPath = path + "\\Image\\" + imageName;
+                    destinationPath = path + "\\Image\\" + imageName;
 
-                    File.Copy(sourcePath, destinationPath);
+                    //File.Copy(sourcePath, destinationPath);
 
-                    MessageBox.Show("Image Uploaded Successfully");
+                   // MessageBox.Show("Image Uploaded Successfully");
                     
                 }
                 
