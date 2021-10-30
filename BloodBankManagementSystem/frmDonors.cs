@@ -118,9 +118,29 @@ namespace BloodBankManagementSystem
 
             d.image_name = image_name;
 
-            bool isSucces = dal.Update(d);
+            //upload new image
+            if (image_name != "no-image.jpg")
+            {
+                File.Copy(sourcePath, destinationPath);
+            }
 
-            if(isSucces == true)
+            bool isSucces = dal.Update(d);
+            //remove previous image
+
+            if (rowHeaderImage != "no-image.jpg")
+            {
+                string paths = Application.StartupPath.Substring(0, (Application.StartupPath.Length));
+                string imagePath = paths + "\\Image\\" + rowHeaderImage;
+
+                clear();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                File.Delete(imagePath);
+            }
+
+            if (isSucces == true)
             {
                 MessageBox.Show("DATA UPDATED");
                 clear();

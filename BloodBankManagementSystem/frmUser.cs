@@ -172,11 +172,29 @@ namespace BloodBankManagementSystem
             u.added_date = DateTime.Now;
             u.image_name = imageName;
 
-            
+            //upload new image
+            if (imageName != "no-image.jpg")
+            {
+                File.Copy(sourcePath, destinationPath);
+            }
 
             bool success = dal.Update(u);
 
-            if(success)
+            //remove previous image
+            if (rowHeaderImage != "no-image.jpg")
+            {
+                string paths = Application.StartupPath.Substring(0, (Application.StartupPath.Length));
+                string imagePath = paths + "\\Image\\" + rowHeaderImage;
+
+                clear();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                File.Delete(imagePath);
+            }
+
+            if (success)
             {
                 MessageBox.Show("User updayted successfully");
                 
